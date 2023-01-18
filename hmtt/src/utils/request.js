@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { Toast } from 'vant'
+
 const request = axios.create({
   baseURL: 'http://api-toutiao-web.itheima.net/' // 基础路径
   // http://api-toutiao-web.itheima.net/app/v1_0/user
@@ -15,11 +17,12 @@ request.interceptors.request.use(
 // 添加响应拦截器
 request.interceptors.response.use(
   (response) => {
+    Toast.success('登录成功')
     return response.data
   },
   (err) => {
     if (err.response.status === 400) {
-      console.log(1111)
+      Toast.fail('手机号或者验证码错误')
     }
     return Promise.reject(err)
   }
