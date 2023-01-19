@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <!-- 导航栏 -->
-    <van-nav-bar title="登录"/>
+    <van-nav-bar title="登录" ><van-icon slot="left" name="cross" @click="$router.back()" /></van-nav-bar>
     <!-- 表单验证 -->
     <van-form @submit="onSubmit">
   <van-field
@@ -31,7 +31,7 @@
     <van-button v-else size="small" class="send" round type="default" native-type="button" @click="sendms">发送验证码</van-button>
   </template></van-field>
   <div style="margin: 16px;">
-    <van-button round block type="info" native-type="submit">登录</van-button>
+    <van-button round block type="info" native-type="submit" >登录</van-button>
   </div>
 </van-form>
   </div>
@@ -49,6 +49,7 @@ export default {
   methods: {
     async  onSubmit (val) {
       const data = await login(val)
+      this.$router.push('/')
       this.$store.commit('setUser', data.data)
       console.log(data)
     },
@@ -71,6 +72,9 @@ export default {
   .van-nav-bar {
   background-color: #3296fa;
   .van-nav-bar__title {
+    color: #fff;
+  }
+  .van-icon  {
     color: #fff;
   }
 }

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Toast } from 'vant'
+import store from '../store'
 
 const request = axios.create({
   baseURL: 'http://api-toutiao-web.itheima.net/' // 基础路径
@@ -7,6 +8,10 @@ const request = axios.create({
 })
 request.interceptors.request.use(
   (config) => {
+    const { user } = store.state
+    if (user && user.token) {
+      config.headers.Authorization = `Bearer ${user.token}`
+    }
     return config
   },
   (err) => {
@@ -18,6 +23,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     Toast.success('登录成功')
+
     return response.data
   },
   (err) => {

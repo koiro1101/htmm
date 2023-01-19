@@ -130,3 +130,6 @@
 .icon-zuopin1:before {
   content: "\e628";
 }
+body {
+  background-color: #f2f4f5;
+}
