@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^1.2.2",
     "core-js": "^3.6.5",
+    "dayjs": "^1.11.7",
     "vant": "^2.12.53",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

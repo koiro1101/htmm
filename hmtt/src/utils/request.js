@@ -22,7 +22,7 @@ request.interceptors.request.use(
 // 添加响应拦截器
 request.interceptors.response.use(
   (response) => {
-    Toast.success('登录成功')
+    // Toast.success('登录成功')
 
     return response.data
   },

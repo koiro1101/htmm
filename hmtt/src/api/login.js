@@ -14,11 +14,23 @@ export const getUserInfo = () => {
   return request({
     method: 'GET',
     url: '/app/v1_0/user'
-    // 发送请求头数据
-    // headers: {
-    //   // 注意：该接口需要授权才能访问
-    //   //       token的数据格式：Bearer token数据，注意 Bearer 后面有个空格
-    //   Authorization: `Bearer ${store.state.user.token}`
-    // }
+
+  })
+}
+// 获取列表数据
+export const getUseList = () => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/user/channels'
+
+  })
+}
+// 获取文章数据
+export const getUserArticle = (params) => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_1/articles',
+    params
+
   })
 }
