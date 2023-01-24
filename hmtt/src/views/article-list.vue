@@ -72,7 +72,7 @@ export default {
         //   JSON.parse('DADADAAD')
         // }
         const result = res.data.results
-        console.log(res)
+        // console.log(res)
         this.list.push(...result)
         this.loading = false
         if (result.length) {

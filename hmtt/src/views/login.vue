@@ -51,7 +51,7 @@ export default {
       const data = await login(val)
       this.$router.push('/')
       this.$store.commit('setUser', data.data)
-      console.log(data)
+      // console.log(data)
     },
     async sendms () {
       if (this.mobile.length === 11) {

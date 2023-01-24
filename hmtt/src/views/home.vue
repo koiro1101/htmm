@@ -8,34 +8,75 @@
     <van-tab :title="item.name" v-for="(item) in channelList" :key="item.id">
       <Article :channels="item"></Article>
     </van-tab>
-    <div slot="nav-right" class="gd"><i class="iconfont icon-gengduo"></i></div>
-</van-tabs>
+    <div slot="nav-right" class="gd" @click="isEditChannelShow= true"><i class="iconfont icon-gengduo"></i></div>
+    </van-tabs>
+    <!-- 弹出层 -->
+    <van-popup
+      class="edit-channel-popup"
+      v-model="isEditChannelShow"
+      position="bottom"
+      :style="{ height: '100%' }"
+      closeable
+      close-icon-position="top-left"
+>   <ChennelEdit :channelList="channelList" :active="active" @onMyChannels="onMyChannels"></ChennelEdit>
+    </van-popup>
   </div>
 </template>
 
 <script>
 import Article from './article-list.vue'
 import { getUseList } from '../api/login.js'
+import ChennelEdit from './chennel-edit.vue'
+import { mapState } from 'vuex'
+import { getItem } from '../utils/storage'
 export default {
-  components: { Article },
+  computed: {
+    ...mapState(['user'])
+  },
+  components: { Article, ChennelEdit },
   created () {
     this.load()
   },
   methods: {
+    onMyChannels (y, ishow) {
+      this.active = y
+      this.isEditChannelShow = ishow
+    },
     async load () {
       try {
-        const res = await getUseList()
-        this.channelList = res.data.channels
+        let channels = []
+        if (this.user) {
+          const res = await getUseList()
+
+          channels = res.data.channels
+        } else {
+          const localChannels = getItem('TOUTIAO_CHANNELS')
+          if (localChannels) {
+            channels = localChannels
+          } else {
+            const res = await getUseList()
+            channels = res.data.channels
+          }
+        }
+        this.channelList = channels
       } catch (error) {
-        this.$toast('获取频道列表数据失败')
+        this.$toast.fail('获取频道数据失败')
         console.log(error)
       }
+      // try {
+      //   const res = await getUseList()
+      //   this.channelList = res.data.channels
+      // } catch (error) {
+      //   this.$toast('获取频道列表数据失败')
+      //   console.log(error)
+      // }
     }
   },
   data () {
     return {
       active: 0,
-      channelList: []
+      channelList: [],
+      isEditChannelShow: false
     }
   }
 }
