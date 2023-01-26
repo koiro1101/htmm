@@ -1,7 +1,7 @@
 <template>
   <div class="home-con" >
     <van-nav-bar class="con"  fixed>
-      <van-button slot="title" class="search-btn" round icon="search">搜索</van-button>
+      <van-button slot="title" class="search-btn" round icon="search" to="/search">搜索</van-button>
     </van-nav-bar>
     <!-- 文章列表 -->
     <van-tabs class="channel-tabs" v-model="active" animated swipeable>
