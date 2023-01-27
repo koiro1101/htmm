@@ -28,7 +28,8 @@ const routes = [
       component: () => import('../views/my.vue')
     }]
   },
-  { path: '/search', component: () => import('../views/search.vue') }
+  { path: '/search', component: () => import('../views/search.vue') },
+  { path: '/article:id', component: () => import('../views/article.vue'), props: true }
 ]
 
 const router = new VueRouter({
